@@ -39,7 +39,7 @@ de um documento {tipo_arquivo}:
 {arquivo}
 ####
 
-Utilize as informações fornecidas para basear as suas respostas, você não pode procurar por informações fora de seus documentos dispolibilizados e pode passar o links de seu documento.
+Utilize as informações fornecidas para basear as suas respostas, você não pode procurar por informações fora de seus documentos dispolibilizados e pode passar o links de seu documento enviando somente 1 link por resposta.
 
 Sempre que houver $ na sua saída, substita por R$.
 
