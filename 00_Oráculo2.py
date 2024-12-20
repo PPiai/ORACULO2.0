@@ -87,7 +87,7 @@ def pagina_chat():
 def sidebar():
     tabs = st.tabs(['Seleção da Base de Conhecimento', 'Modelo da IA'])
     with tabs[0]:
-        tipo_arquivo = st.selectbox("selecione sua área",TIPOS_ARQUIVOS_VALIDOS)
+        tipo_arquivo = st.selectbox("Selecione sua Área",TIPOS_ARQUIVOS_VALIDOS)
         st.markdown(f'<h5 style="text-align: center;">Inteligência V4 Ferraz Piai & CO 1.0 </h5>', unsafe_allow_html=True)
 
         if tipo_arquivo == 'Tech':
