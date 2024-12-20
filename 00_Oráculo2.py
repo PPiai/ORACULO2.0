@@ -9,6 +9,7 @@ TIPOS_ARQUIVOS_VALIDOS = [
     'Tech',
     'Social Media',
     'Gestor de Tráfego',
+    'Account',
     'Vendas'
 ]
 
@@ -83,19 +84,12 @@ def pagina_chat():
         memoria.chat_memory.add_ai_message(resposta)
         st.session_state['memoria'] = memoria
 
-TIPOS_ARQUIVOS_VALIDOS = [
-    'Tech',
-    'Social Media',
-    'Gestor de Tráfego',
-    'Account',
-    'Vendas'
-]
 def sidebar():
     tabs = st.tabs(['Seleção da Base de Conhecimento', 'Modelo da IA'])
     with tabs[0]:
-        st.markdown(f'<h5 style="text-align: center;">Inteligência V4 Ferraz Piai & CO 1.0 </h5>', unsafe_allow_html=True)
-        
         tipo_arquivo = st.selectbox("selecione sua área",TIPOS_ARQUIVOS_VALIDOS)
+        st.markdown(f'<h5 style="text-align: center;">Inteligência V4 Ferraz Piai & CO 1.0 </h5>', unsafe_allow_html=True)
+
         if tipo_arquivo == 'Tech':
             arquivo = [
                 'https://vendas.v4company.com/glossario-marketing/',
