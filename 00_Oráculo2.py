@@ -118,6 +118,7 @@ def sidebar():
             
         elif tipo_arquivo == 'Social Media':
             arquivo = ['https://vendas.v4company.com/glossario-marketing/',
+                       'https://v4company.com/marketing-digital/como-criar-criativos-que-convertem',
                        'https://heyzine.com/flip-book/87da189f45.html',
                        'https://heyzine.com/flip-book/d33a44284a.html',
                        'https://querobolsa.com.br/carreiras-e-profissoes/social-media',
