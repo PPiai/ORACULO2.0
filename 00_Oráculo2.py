@@ -9,8 +9,7 @@ TIPOS_ARQUIVOS_VALIDOS = [
     'V4 Company',
     'Glossário Marketing', 
     'Livro Top Secret - Cientista', 
-    'Livro Cientista do Marketing',
-    'Docs'
+    'Livro Cientista do Marketing'
 ]
 
 CONFIG_MODELOS = {'Groq': 
