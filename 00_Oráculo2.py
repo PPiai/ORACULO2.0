@@ -91,8 +91,7 @@ def sidebar():
         st.markdown(f'<h5 style="text-align: center;">Inteligência V4 Ferraz Piai & CO 1.0 </h5>', unsafe_allow_html=True)
 
         if tipo_arquivo == 'Tech':
-            arquivo = [
-                'https://vendas.v4company.com/glossario-marketing/',
+            arquivo = ['https://vendas.v4company.com/glossario-marketing/',
                 'https://heyzine.com/flip-book/87da189f45.html',
                 'https://heyzine.com/flip-book/d33a44284a.html',
                 'https://www.notion.so/v4-ferraz/V4-Ferraz-Comece-por-aqui-53b9d81566af46a481dc0c94018035ef',
@@ -115,12 +114,10 @@ def sidebar():
                 'https://v4-ferraz.notion.site/Como-implementar-um-CRM-77fc1d1881594ab58c496e8a8d744d6a?pvs=4',
                 'https://v4-ferraz.notion.site/8b96e95ef4584f1b89bc6ac7f1086ea1?v=93f7dfa0244942d4863ebaa93b814301',
                 'https://v4-ferraz.notion.site/O-que-uma-Dashboard-71bc983c62c04054a85d443bb92357d3',
-                'https://v4-ferraz.notion.site/Modelo-de-Debriefing-f5a2869027bc41199ed330ca69423245'
-            ]
+                'https://v4-ferraz.notion.site/Modelo-de-Debriefing-f5a2869027bc41199ed330ca69423245']
             
             if tipo_arquivo == 'Social Media':
-                arquivo = [
-                    'https://vendas.v4company.com/glossario-marketing/',
+                arquivo = ['https://vendas.v4company.com/glossario-marketing/',
                     'https://heyzine.com/flip-book/87da189f45.html',
                     'https://heyzine.com/flip-book/d33a44284a.html',
                     'https://querobolsa.com.br/carreiras-e-profissoes/social-media',
@@ -128,11 +125,10 @@ def sidebar():
                     'https://v4-ferraz.notion.site/Auditoria-Design-724d6b15549c47d2a790d7592934c3bb',
                     'https://v4-ferraz.notion.site/Auditoria-Social-Media-b88d360958244502b356a8ff60cb604c',
                     'https://v4-ferraz.notion.site/03-Playbook-de-Criativos-7265fdd5f02a4b0a89539f23caa3b86c',
-                    'https://v4-ferraz.notion.site/V4-Ferraz-Comece-por-aqui-53b9d81566af46a481dc0c94018035ef?pvs=74',
-                ]
+                    'https://v4-ferraz.notion.site/V4-Ferraz-Comece-por-aqui-53b9d81566af46a481dc0c94018035ef?pvs=74',]
+            
             if tipo_arquivo == 'Gestor de Tráfego':
-                arquivo = [
-                    'https://vendas.v4company.com/glossario-marketing/',
+                arquivo = ['https://vendas.v4company.com/glossario-marketing/',
                     'https://heyzine.com/flip-book/87da189f45.html',
                     'https://heyzine.com/flip-book/d33a44284a.html',
                     'https://v4-ferraz.notion.site/Ferramentas-b0f25ce99d9b49c5a5a35e6e7629bf0c?pvs=4',
@@ -149,11 +145,9 @@ def sidebar():
                     'https://v4-ferraz.notion.site/Subindo-Campanha-de-Cadastro-Lead-Nativo-3d11a98d98ee4b968c2958f8e8bb20f5',
                     'https://v4-ferraz.notion.site/02-Playbook-de-Tr-fego-67c6debd08ca4c8d92cec9c0d494c1be',
                     'https://v4-ferraz.notion.site/05-Playbook-de-Estrat-gias-4497c444c49843be8ab21ab9d21a4bb9',
-                    'https://v4-ferraz.notion.site/07-Metas-e-OKR-s-para-PDV-5b6c25e73cb24212af0266c3dd2a6df9'
-                ]
+                    'https://v4-ferraz.notion.site/07-Metas-e-OKR-s-para-PDV-5b6c25e73cb24212af0266c3dd2a6df9']
             if tipo_arquivo == 'Vendas':
-                arquivo = [
-                    'https://vendas.v4company.com/glossario-marketing/',
+                arquivo = ['https://vendas.v4company.com/glossario-marketing/',
                     'https://heyzine.com/flip-book/87da189f45.html',
                     'https://heyzine.com/flip-book/d33a44284a.html',
                     'https://v4-ferraz.notion.site/Ferramentas-b0f25ce99d9b49c5a5a35e6e7629bf0c?pvs=4',
@@ -161,11 +155,9 @@ def sidebar():
                     'https://v4-ferraz.notion.site/06-Playbook-de-Vendas-6e438418c93546a08c9a8c86e3deab49',
                     'https://rockcontent.com/br/blog/guia-de-vendas/',
                     'https://blog.contaazul.com/estrategia-vendas/',
-                    'https://www.zendesk.com.br/blog/como-aumentar-vendas/'
-                ]
+                    'https://www.zendesk.com.br/blog/como-aumentar-vendas/']
             if tipo_arquivo == 'Account':
-                arquivo = [
-                    'https://vendas.v4company.com/glossario-marketing/',
+                arquivo = ['https://vendas.v4company.com/glossario-marketing/',
                     'https://heyzine.com/flip-book/87da189f45.html',
                     'https://heyzine.com/flip-book/d33a44284a.html',
                     'https://v4-ferraz.notion.site/Ferramentas-b0f25ce99d9b49c5a5a35e6e7629bf0c?pvs=4',
@@ -175,8 +167,7 @@ def sidebar():
                     'https://v4-ferraz.notion.site/Conhe-a-o-processo-Growth-Pages-bebc53c87cb74e7f82e836ad60946824',
                     'https://v4-ferraz.notion.site/FAQ-78d055e854e94e2eaf981d57396a9848',
                     'https://v4-ferraz.notion.site/Auditoria-Gest-o-de-Projeto-637e2ab0284c40a1b7a27d728589f8ec',
-                    'https://www.yampi.com.br/blog/como-fazer-upsell/'
-                ]
+                    'https://www.yampi.com.br/blog/como-fazer-upsell/']
     with tabs[1]:
         st.markdown(f'<h5 style="text-align: center;">IA: Groq </h5>', unsafe_allow_html=True)
         provedor = 'Groq'
