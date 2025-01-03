@@ -41,7 +41,7 @@ de um documento {tipo_arquivo}:
 
 Utilize as informações fornecidas para basear as suas respostas, você não pode procurar por informações fora de seus documentos dispolibilizados e pode passar o links de seu documento enviando somente 1 link por resposta.
 
-Utilize de respostas exatamente coerentes com o seu {arquivo}, preciso que quando algo que tenha no arquivo vc responda igualzinho o arquivo porem mudando algumas poucas coisas.
+Utilize de respostas exatamente coerentes com o seu {arquivo}, preciso que quando algo que tenha no arquivo vc responda igualzinho o arquivo, utilizando o contexto para responder como um resumo bem detalhado.
 
 Sempre que houver $ na sua saída, substita por R$.
 
