@@ -60,6 +60,7 @@ sugira ao usuário carregar novamente o Oráculo!'''
     st.session_state['chain'] = chain
 
 def pagina_chat():
+    st.set_page_config(page_title="Oráculo", page_icon="🤖")
     st.markdown(f'<h2 style="text-align: center;">🤖Bem-vindo ao Oráculo</h2>', unsafe_allow_html=True)
     st.divider()
 
