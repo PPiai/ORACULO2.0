@@ -148,7 +148,7 @@ def sidebar():
                        'https://v4-ferraz.notion.site/Auditoria-Design-724d6b15549c47d2a790d7592934c3bb',
                        'https://v4-ferraz.notion.site/Auditoria-Social-Media-b88d360958244502b356a8ff60cb604c',
                        'https://v4-ferraz.notion.site/03-Playbook-de-Criativos-7265fdd5f02a4b0a89539f23caa3b86c',
-                       'https://v4-ferraz.notion.site/V4-Ferraz-Comece-por-aqui-53b9d81566af46a481dc0c94018035ef?pvs=74',]
+                       'https://v4-ferraz.notion.site/V4-Ferraz-Comece-por-aqui-53b9d81566af46a481dc0c94018035ef?pvs=74']
             
         elif tipo_arquivo == 'Gestor de Tráfego':
             arquivo = ['https://vendas.v4company.com/glossario-marketing/',
