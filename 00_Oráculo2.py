@@ -70,9 +70,10 @@ sugira ao usuário carregar novamente o Oráculo!'''
 
     template = ChatPromptTemplate.from_messages([
         ('system', system_message),
-        ('placeholder', '{chat_history}'),
-        ('user', '{input}')
+        ('placeholder', '{{chat_history}}'),
+        ('user', '{{input}}')
     ])
+
 
     chat = CONFIG_MODELOS[provedor]['chat'](model=modelo, api_key=api_key)
     chain = template | chat
