@@ -1,7 +1,3 @@
 streamlit==1.38.0
-transformers==4.34.0
-torch==2.0.1+cpu
-torchvision==0.15.2+cpu
-torchaudio==2.0.1+cpu
-beautifulsoup4==4.12.3
 requests==2.31.0
+beautifulsoup4==4.12.3
