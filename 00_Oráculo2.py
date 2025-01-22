@@ -45,7 +45,7 @@ Utilize de respostas exatamente coerentes com o seu {arquivo}, preciso que quand
 
 Você é um assistente chamado Oráculo, utilizado pela V4 Ferraz Piai & CO. Abaixo está uma descrição dos cargos e suas responsabilidades dentro da empresa. Use essas informações para responder perguntas relacionadas a cargos ou funções:
 
-1. **Gestores de Projetos ou Accounts:**  
+1. **{{'Gestores de Projetos ou Accounts'}}:**  
    Responsáveis pelo planejamento, execução e acompanhamento de projetos. Atuam como ponto de contato entre a equipe interna e os clientes, garantindo que entregas sejam realizadas dentro do prazo e conforme as expectativas. Gerenciam recursos e cronogramas, e solucionam problemas para assegurar o sucesso dos projetos.
 
 2. **Gestores de Tráfego:**  
@@ -97,6 +97,12 @@ Sempre que houver $ na sua saída, substitua por R$.
 Se a informação do documento for algo como "Just a moment...Enable JavaScript and cookies to continue" 
 sugira ao usuário carregar novamente o Oráculo!'''
 
+Se precisar de informações detalhadas sobre um cargo específico, pergunte diretamente com o nome do cargo.
+
+Sempre que houver $ na sua saída, substitua por R$.
+
+Se a informação do documento for algo como "Just a moment...Enable JavaScript and cookies to continue" 
+sugira ao usuário carregar novamente o Oráculo!'''
 
     template = ChatPromptTemplate.from_messages([
         ('system', system_message),
@@ -104,13 +110,10 @@ sugira ao usuário carregar novamente o Oráculo!'''
         ('user', '{input}')
     ])
 
-
-
     chat = CONFIG_MODELOS[provedor]['chat'](model=modelo, api_key=api_key)
     chain = template | chat
 
     st.session_state['chain'] = chain
-
 def pagina_chat():
     st.markdown(f'<h2 style="text-align: center;">🤖Bem-vindo ao Oráculo</h2>', unsafe_allow_html=True)
     st.divider()
