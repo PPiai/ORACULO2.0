@@ -137,17 +137,26 @@ def pagina_chat():
         # Processa resposta do modelo
         try:
             chat = st.chat_message('ai')
+            # Chamada para a IA e extração do conteúdo da resposta
             resposta = chain.invoke({'input': input_usuario, 'chat_history': memoria.buffer_as_messages})
-            chat.markdown(resposta)
+            
+            # Extrai somente o conteúdo da resposta (ignora metadados)
+            if hasattr(resposta, 'content'):
+                resposta_formatada = resposta.content
+            else:
+                resposta_formatada = str(resposta)  # Caso não tenha atributo 'content'
+
+            chat.markdown(resposta_formatada)  # Exibe apenas o conteúdo da resposta
             
             # Atualiza memória
             memoria.chat_memory.add_user_message(input_usuario)
-            memoria.chat_memory.add_ai_message(resposta)
+            memoria.chat_memory.add_ai_message(resposta_formatada)
             st.session_state['memoria'] = memoria
         except KeyError as e:
             st.error(f"Erro no processamento: {str(e)}")
         except Exception as e:
             st.error(f"Erro inesperado: {str(e)}")
+
         
 def sidebar():
     tabs = st.tabs(['Seleção da Base de Conhecimento', 'Modelo da IA'])
