@@ -30,7 +30,7 @@ def carrega_site(url):
 def carrega_arquivos(tipo_arquivo, arquivo):
         documento = carrega_site(arquivo)
 
-def carrega_modelo(provedor, modelo, api_key, tipo_arquivo, arquivo):
+def carrega_modelo(provedor, modelo, api_key, arquivo):
     # Prompt corrigido com variáveis escapadas corretamente
     system_message = f'''Você é um assistente amigável chamado Oráculo que é utilizado pela empresa v4 ferraz piai & CO.
 Você possui acesso às seguintes informações vindas do um documento: 
