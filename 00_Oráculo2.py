@@ -1,6 +1,15 @@
 import streamlit as st
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import requests
 from bs4 import BeautifulSoup
+
+# Configuração do pipeline do modelo Hugging Face
+@st.cache_resource
+def carregar_pipeline():
+    modelo = "gpt2"  # Substitua por "flan-t5-base" para respostas mais específicas
+    tokenizer = AutoTokenizer.from_pretrained(modelo)
+    modelo_transformers = AutoModelForCausalLM.from_pretrained(modelo)
+    return pipeline("text-generation", model=modelo_transformers, tokenizer=tokenizer, max_length=500)
 
 TIPOS_ARQUIVOS_VALIDOS = [
     'Tech',
@@ -10,13 +19,6 @@ TIPOS_ARQUIVOS_VALIDOS = [
     'Vendas'
 ]
 
-posi = {
-    'Gestores de Projetos ou Accounts': 'Responsáveis pelo planejamento, execução e acompanhamento de projetos...',
-    'Gestores de Tráfego': 'Focados em estratégias de mídia paga e orgânica...',
-    'Analista de CRM': 'Especialista em gerenciar as relações com clientes...',
-    # Outros cargos...
-}
-
 ARQUIVOS = {
     'Tech': ['https://vendas.v4company.com/glossario-marketing/'],
     'Social Media': ['https://vendas.v4company.com/glossario-marketing/'],
@@ -25,7 +27,7 @@ ARQUIVOS = {
     'Vendas': ['https://vendas.v4company.com/glossario-marketing/'],
 }
 
-# Função para carregar conteúdo de URLs e extrair texto
+# Função para carregar conteúdo das URLs e extrair texto
 def carrega_site(url):
     try:
         response = requests.get(url)
@@ -37,29 +39,23 @@ def carrega_site(url):
     except Exception as e:
         return f"Erro ao conectar: {e}"
 
-# Função para criar uma resposta dinâmica baseada no contexto
-def criar_resposta(pergunta, tipo_arquivo):
+# Função para criar uma resposta dinâmica baseada no modelo Hugging Face
+def criar_resposta(pergunta, tipo_arquivo, pipeline_ia):
+    # Carregar os documentos relacionados ao tipo de arquivo selecionado
     arquivos = ARQUIVOS.get(tipo_arquivo, [])
-    resposta_final = None
-
-    # Verificar se a pergunta está no dicionário de cargos
-    if pergunta in posi:
-        return posi[pergunta], None
-
-    # Procurar a resposta nos documentos carregados
+    contexto = ""
     for url in arquivos:
-        conteudo = carrega_site(url)
-        if pergunta.lower() in conteudo.lower():  # Busca direta na página
-            inicio = conteudo.lower().find(pergunta.lower())
-            trecho_relevante = conteudo[inicio:inicio + 300]  # Trecho em torno da pergunta
-            resposta_final = f"Baseado no documento, encontrei: {trecho_relevante}..."
-            return resposta_final, url
+        contexto += carrega_site(url) + "\n\n"
 
-    # Caso nenhuma resposta seja encontrada
-    return "Não encontrei informações relevantes nos documentos. Revise as URLs fornecidas.", arquivos[0] if arquivos else None
+    # Criar o prompt para o modelo
+    prompt = f"Contexto: {contexto}\n\nPergunta: {pergunta}\n\nResposta:"
+    
+    # Gerar resposta usando o pipeline Hugging Face
+    resposta = pipeline_ia(prompt)[0]["generated_text"]
+    return resposta
 
 # Exibir mensagens no chat
-def pagina_chat():
+def pagina_chat(pipeline_ia):
     st.title("🤖 Bem-vindo ao Oráculo")
     st.divider()
 
@@ -80,12 +76,11 @@ def pagina_chat():
 
         # Gerar resposta
         tipo_arquivo = st.session_state.get("tipo_arquivo", "Tech")
-        resposta, url = criar_resposta(pergunta, tipo_arquivo)
+        resposta = criar_resposta(pergunta, tipo_arquivo, pipeline_ia)
 
-        # Construir resposta final com link, se disponível
-        resposta_completa = f"{resposta}\n\n[Leia mais aqui]({url})" if url else resposta
-        st.session_state["historico"].append({"autor": "ai", "conteudo": resposta_completa})
-        st.chat_message("ai").markdown(resposta_completa)
+        # Construir resposta final
+        st.session_state["historico"].append({"autor": "ai", "conteudo": resposta})
+        st.chat_message("ai").markdown(resposta)
 
 # Configuração da barra lateral
 def sidebar():
@@ -101,8 +96,9 @@ def sidebar():
 
 # Executar aplicativo principal
 def main():
+    pipeline_ia = carregar_pipeline()
     sidebar()
-    pagina_chat()
+    pagina_chat(pipeline_ia)
 
 if __name__ == "__main__":
     main()
