@@ -1,12 +1,10 @@
 import streamlit as st
-from langchain-groq import ChatGroq
-from langchain.prompts import ChatPromptTemplate
-from langchain.memory import ConversationBufferMemory
-from langchain.chains import ConversationChain
-from langchain.docstore.document import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from bs4 import BeautifulSoup
+from llama_index import GPTSimpleVectorIndex, Document, SimpleKeywordTableIndex
+from llama_index.indices.base import BaseGPTIndex
+from llama_index.llms import LlamaGroq
+from llama_index.prompts.prompts import QuestionAnswerPrompt
 import requests
+from bs4 import BeautifulSoup
 
 # Configuração inicial
 TIPOS_ARQUIVOS_VALIDOS = [
@@ -25,7 +23,6 @@ ARQUIVOS = {
     'Vendas': ['https://vendas.v4company.com/glossario-marketing/'],
 }
 
-# Configuração da API do Groq Cloud
 GROQ_API_KEY = "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"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
@@ -41,46 +38,39 @@ def carrega_site(url):
     except Exception as e:
         return f"Erro ao conectar: {e}"
 
-# Carregar os documentos das URLs
-def carrega_contexto(tipo_arquivo):
-    arquivos = ARQUIVOS.get(tipo_arquivo, [])
-    contexto = ""
-    for url in arquivos:
-        contexto += carrega_site(url) + "\n\n"
-    return contexto
-
-# Configuração do modelo LangChain com Groq
+# Função para carregar documentos e criar índice
 @st.cache_resource
-def carregar_chain():
-    system_message = """
-    Você é um assistente chamado Oráculo da V4 Ferraz Piai & CO. 
-    Responda com base no contexto fornecido. Se não souber, avise que não encontrou informações suficientes.
-    """
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_message),
-        ("user", "{input}")
-    ])
-    chat = ChatGroq(model=GROQ_MODEL, api_key=GROQ_API_KEY)
-    memory = ConversationBufferMemory(memory_key="chat_history")
-    chain = ConversationChain(llm=chat, memory=memory, prompt=prompt)
-    return chain
+def criar_indice(tipo_arquivo: str) -> BaseGPTIndex:
+    arquivos = ARQUIVOS.get(tipo_arquivo, [])
+    documentos = []
+    for url in arquivos:
+        conteudo = carrega_site(url)
+        documentos.append(Document(conteudo))
+    
+    # Criar índice com os documentos carregados
+    index = GPTSimpleVectorIndex(documents=documentos)
+    return index
 
-# Configuração da barra lateral
+# Configurar modelo Groq com LlamaIndex
+@st.cache_resource
+def configurar_llm():
+    llm = LlamaGroq(model=GROQ_MODEL, api_key=GROQ_API_KEY)
+    return llm
+
+# Sidebar do Streamlit
 def sidebar():
     st.sidebar.title("Configuração")
     tipo_arquivo = st.sidebar.selectbox("Selecione sua Área", TIPOS_ARQUIVOS_VALIDOS)
     st.session_state["tipo_arquivo"] = tipo_arquivo
 
-    # Botão para apagar histórico
     if st.sidebar.button("Apagar Histórico"):
-        st.session_state["memoria"] = ConversationBufferMemory()
+        st.session_state["historico"] = []
 
 # Página principal do chat
-def pagina_chat(chain):
+def pagina_chat(llm, index):
     st.title("🤖 Bem-vindo ao Oráculo")
     st.divider()
 
-    # Inicializar histórico de mensagens
     if "historico" not in st.session_state:
         st.session_state["historico"] = []
 
@@ -88,30 +78,29 @@ def pagina_chat(chain):
     for mensagem in st.session_state["historico"]:
         st.chat_message(mensagem["autor"]).markdown(mensagem["conteudo"])
 
-    # Entrada do usuário
     pergunta = st.chat_input("Fale com o Oráculo")
     if pergunta:
-        # Registrar pergunta do usuário
+        # Exibir pergunta no chat
         st.session_state["historico"].append({"autor": "human", "conteudo": pergunta})
         st.chat_message("human").markdown(pergunta)
 
-        # Carregar contexto baseado na área selecionada
-        tipo_arquivo = st.session_state.get("tipo_arquivo", "Tech")
-        contexto = carrega_contexto(tipo_arquivo)
+        # Gerar resposta
+        query_prompt = QuestionAnswerPrompt("Pergunta: {query}\n\nResposta:")
+        resposta = index.query(query=pergunta, llm=llm, query_prompt=query_prompt)
 
-        # Adicionar contexto à pergunta
-        entrada_completa = f"Contexto: {contexto}\n\nPergunta: {pergunta}"
-        resposta = chain.run({"input": entrada_completa})
-
-        # Registrar resposta da IA
-        st.session_state["historico"].append({"autor": "ai", "conteudo": resposta})
-        st.chat_message("ai").markdown(resposta)
+        # Adicionar resposta ao histórico
+        st.session_state["historico"].append({"autor": "ai", "conteudo": resposta.response})
+        st.chat_message("ai").markdown(resposta.response)
 
 # Função principal
 def main():
     sidebar()
-    chain = carregar_chain()
-    pagina_chat(chain)
+
+    tipo_arquivo = st.session_state.get("tipo_arquivo", "Tech")
+    llm = configurar_llm()
+    index = criar_indice(tipo_arquivo)
+
+    pagina_chat(llm, index)
 
 if __name__ == "__main__":
     main()
