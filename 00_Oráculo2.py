@@ -88,7 +88,7 @@ def sidebar():
     st.sidebar.title("Configuração")
     tipo_arquivo = st.sidebar.selectbox("Selecione sua Área", TIPOS_ARQUIVOS_VALIDOS)
     arquivos = ARQUIVOS.get(tipo_arquivo, [])
-    api_key = st.sidebar.text_input("Chave da API (opcional)", type="password")
+    api_key = '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'
 
     if st.sidebar.button("Inicializar Oráculo"):
         carrega_modelo(api_key, tipo_arquivo, arquivos)
