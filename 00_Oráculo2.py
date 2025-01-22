@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain.chat_models import ChatGroq
+from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
