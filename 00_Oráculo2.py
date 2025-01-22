@@ -13,7 +13,7 @@ TIPOS_ARQUIVOS_VALIDOS = [
     'Vendas'
 ]
 
-cargos = {
+posi = {
     'Gestores de Projetos ou Accounts' : 'Responsáveis pelo planejamento, execução e acompanhamento de projetos. Atuam como ponto de contato entre a equipe interna e os clientes, garantindo que entregas sejam realizadas dentro do prazo e conforme as expectativas. Gerenciam recursos e cronogramas, e solucionam problemas para assegurar o sucesso dos projetos.',
     'Gestores de Tráfego' : 'Focados em estratégias de mídia paga e orgânica, eles gerenciam campanhas publicitárias em plataformas como Google Ads, Facebook Ads, e outros canais de mídia. Trabalham para aumentar o tráfego qualificado e otimizar o ROI (Retorno sobre Investimento).',
     'Analista de CRM' : 'Especialista em gerenciar as relações com clientes por meio de sistemas de CRM (Customer Relationship Management). É responsável por segmentar públicos, planejar campanhas e otimizar a jornada do cliente para aumentar retenção e engajamento.',
@@ -61,7 +61,7 @@ Utilize as informações fornecidas para basear as suas respostas, você não po
 
 Utilize de respostas exatamente coerentes com o seu {arquivo}, preciso que quando algo que tenha no arquivo vc responda igualzinho o arquivo, utilizando o contexto para responder igualmente seus {arquivo} disponíveis.
 
-Na empresa temos alguns nomenclaturas de cargos que você desconhece, todos os nomes que você tem que conhecer estão em {cargos}.
+Na empresa temos alguns nomenclaturas de cargos que você desconhece, todos os nomes que você tem que conhecer estão em {posi}.
 
 Sempre que houver $ na sua saída, substitua por R$.
 
