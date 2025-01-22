@@ -97,13 +97,6 @@ Sempre que houver $ na sua saída, substitua por R$.
 Se a informação do documento for algo como "Just a moment...Enable JavaScript and cookies to continue" 
 sugira ao usuário carregar novamente o Oráculo!'''
 
-Se precisar de informações detalhadas sobre um cargo específico, pergunte diretamente com o nome do cargo.
-
-Sempre que houver $ na sua saída, substitua por R$.
-
-Se a informação do documento for algo como "Just a moment...Enable JavaScript and cookies to continue" 
-sugira ao usuário carregar novamente o Oráculo!'''
-
     template = ChatPromptTemplate.from_messages([
         ('system', system_message),
         ('placeholder', '{chat_history}'),
